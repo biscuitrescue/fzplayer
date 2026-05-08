@@ -49,6 +49,7 @@ void push_song(SongList *songs, const char *path) {
   if (songs->len >= songs->cap) {
     songs->cap *= 2;
 
+    // TODO: realloc into tmp ptr
     songs->items = realloc(songs->items, sizeof(char *) * songs->cap);
   }
 
@@ -78,6 +79,12 @@ void get_songs(SongList *songs) {
   }
 }
 
+int cmp_songs(const void *a, const void *b) {
+    const char *path_a = *(const char **)a;
+    const char *path_b = *(const char **)b;
+    return strcasecmp(path_a, path_b);
+}
+
 int main(int argc, char *argv[]) {
   char buf[PATH_MAX];
   char *path;
@@ -99,6 +106,7 @@ int main(int argc, char *argv[]) {
   songs.items = malloc(sizeof(char *) * songs.cap);
 
   scan_dir(&songs, path);
+  qsort(songs.items, songs.len, sizeof(char *), cmp_songs);
   get_songs(&songs);
 
   for (size_t i = 0; i < songs.len; i++) {
