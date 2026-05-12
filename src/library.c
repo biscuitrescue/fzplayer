@@ -59,12 +59,11 @@ bool is_audio(const char *path) {
 
 void get_songs(SongList *songs) {
   if (songs->len == 0) {
-    printf("Nothing in directory, exiting...");
+    printf("No song file in directory, exiting...");
     exit(EXIT_SUCCESS);
   }
   for (size_t i = 0; i < songs->len; i++) {
     printf("%s\n", songs->items[i]);
-    /* printf("%zu\n", i); */
   }
 }
 
