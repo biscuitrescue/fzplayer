@@ -63,7 +63,8 @@ void get_songs(SongList *songs) {
     exit(EXIT_SUCCESS);
   }
   for (size_t i = 0; i < songs->len; i++) {
-    printf("%s\n", songs->items[i]);
+    const char *ext = (strrchr(songs->items[i], '/'));
+    printf("%s\n", ext);
   }
 }
 

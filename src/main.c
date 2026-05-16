@@ -30,8 +30,6 @@ int main(int argc, char *argv[]) {
   scan_dir(&songs, path);
   qsort(songs.items, songs.len, sizeof(char *), cmp_songs);
   get_songs(&songs);
-  
-  run(&songs);
 
   for (size_t i = 0; i < songs.len; i++) {
     free(songs.items[i]);
