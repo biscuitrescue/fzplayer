@@ -1,8 +1,8 @@
 #include <dirent.h>
 #include <linux/limits.h>
-#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <strings.h>
 
 #include "library.h"
@@ -14,17 +14,17 @@ void scan_dir(SongList *songs, const char *path) {
     perror("Couldn't open directory");
     exit(EXIT_FAILURE);
   }
-  
+
   struct dirent *entry;
   char full_path[PATH_MAX];
-  
+
   while ((entry = readdir(dir)) != NULL) {
     if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
       continue;
     }
-    
+
     snprintf(full_path, sizeof(full_path), "%s/%s", path, entry->d_name);
-    
+
     if (entry->d_type == DT_DIR) {
       scan_dir(songs, full_path);
     } else if (is_audio(entry->d_name)) {
@@ -44,7 +44,7 @@ void push_song(SongList *songs, const char *path) {
   songs->items[songs->len] = strdup(path);
   songs->len++;
 }
- 
+
 bool is_audio(const char *path) {
   const char *ext = (strrchr(path, '.'));
 
@@ -68,8 +68,7 @@ void get_songs(SongList *songs) {
 }
 
 int cmp_songs(const void *a, const void *b) {
-    const char *path_a = *(const char **)a;
-    const char *path_b = *(const char **)b;
-    return strcasecmp(path_a, path_b);
+  const char *path_a = *(const char **)a;
+  const char *path_b = *(const char **)b;
+  return strcasecmp(path_a, path_b);
 }
-
