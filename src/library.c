@@ -38,7 +38,6 @@ void push_song(SongList *songs, const char *path) {
   if (songs->len >= songs->cap) {
     songs->cap *= 2;
 
-    // TODO: realloc into tmp ptr
     songs->items = realloc(songs->items, sizeof(char *) * songs->cap);
   }
 
